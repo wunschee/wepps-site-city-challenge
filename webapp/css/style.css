@@ -15,7 +15,7 @@ h1.heading {
 /* Marker Info Window */
 h1.marker-heading {
     color: #585858;
-    margin: 0px;
+    margin: 0px 0px 10px 0px;
     padding: 0px;
     font: 18px"Trebuchet MS", Arial;
     border-bottom: 1px dotted #D8D8D8;

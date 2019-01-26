@@ -1,13 +1,14 @@
 sap.ui.define(["jquery.sap.global"], function (jQuery) {
     "use strict";
 	return {
-		info: function(oV1, oV2, oV3) {
+		info: function(oV1, oV2, oV3, oV4) {
 			// debugger;
 			var str = jQuery('<div class="marker-info-win">' +
 				'<div class="marker-inner-win"><span class="info-content">' +
-				'<h1 class="marker-heading">' + oV1 + '</h1>' +
-				'' + oV2 + '<br>' + oV3 +
-				'</span></div></div>');
+				'<div style="float:left"><h1 class="marker-heading">' + oV1 + '</h1>' +
+				'' + oV2 + '<br><br>' + oV3 + '</div><div style="float:right">' +
+				'<img width="250px" src="' + oV4 + '">' +
+				'</div></span></div></div>');
 			return str[0].outerHTML;
 		},
 		getMarkerIcon: function() {
