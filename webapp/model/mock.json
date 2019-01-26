@@ -1,0 +1,45 @@
+{
+    "locations": [{
+        "name": "Well Street",
+        "description": "First Point",
+        "type": "Wünsch / Tóth",
+        "ABV": 13,
+        "lat": 46.130486,
+        "lng": 18.323228
+    }, {
+        "name": "Crossroad",
+        "description": "Second Point",
+        "type": "Wünsch / Tóth",
+        "ABV": 8,
+        "lat": 46.110782,
+        "lng": 18.327091
+    }, {
+        "name": "Third Point",
+        "description": "third Point",
+        "type": "Wünsch / Tóth",
+        "ABV": 10.25,
+        "lat": 46.085899,
+        "lng": 18.270749
+    }, {
+        "name": "Fourth Point",
+        "description": "Fourth Point",
+        "type": "Wünsch / Tóth",
+        "ABV": 11.5,
+        "lat": 46.074093,
+        "lng": 18.234602
+    }, {
+        "name": "Fifth Point",
+        "description": "Fifth Point",
+        "type": "Wünsch / Tóth",
+        "ABV": 13.4,
+        "lat": 46.071295,
+        "lng": 18.233156
+    }, {
+        "name": "Last Point",
+        "description": "Last Point",
+        "type": "Wünsch / Tóth",
+        "ABV": 13,
+        "lat": 46.057905,
+        "lng": 18.229339
+    }]
+}

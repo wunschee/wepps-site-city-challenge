@@ -1,0 +1,22 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="city.challenge.controller.Detail"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:gmaps="openui5.googlemaps">
+	<Page id="page1" enableScrolling="false" showNavButton="{device>/system/phone}" navButtonPress="onNavBack">
+        <content>
+            <gmaps:Map id="map1" height="400px" zoom="20" lat="{/locations/0/lat}" lng="{/locations/0/lng}" markers="{/locations}" ready="onMapReady" fitToMarkers="false" apiKey="AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0">
+                <gmaps:Marker lat="{lat}" lng="{lng}" info="{parts:[{path:'name'},{path:'description'},{path:'type'}], formatter:'.formatter.info'}" click="onMarkerClick" icon="{icon}" animation="0"></gmaps:Marker>
+            </gmaps:Map>
+        </content>
+        <footer>
+            <Bar>
+            	<contentLeft>
+                    <Label text="Current Posision: " />
+                    <Switch change="onShowCurrentPos" state="false" />
+                </contentLeft>
+                <contentRight>
+                    <Label text="Show Polylines: " />
+                    <Switch change="onShowPolyline" state="false" />
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>

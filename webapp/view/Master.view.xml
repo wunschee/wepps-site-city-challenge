@@ -1,0 +1,19 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="city.challenge.controller.Master"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="{i18n>title}">
+        <List
+            id="places"
+            items="{/locations}"
+            mode="SingleSelectMaster"
+            selectionChange="handleListSelect">
+            <StandardListItem
+                title="{name}"
+                description="{description}"
+                icon="./googlemaps/themes/base/img/pinkball.png" />
+        </List>
+        <footer>
+            <Bar>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>
