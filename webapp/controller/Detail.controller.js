@@ -4,17 +4,21 @@ sap.ui.define([
 	"sap/m/MessageToast"
 ], function (Controller, formatter, MessageToast) {
 	// "use strict";
+	this.selectedLocation = null;
+	this.pointReached = false;
 
 	return Controller.extend("city.challenge.controller.Detail", {
 		formatter: formatter,
 
 		onInit: function () {
 			sap.ui.getCore().getEventBus().subscribe("listSelected", this.onListSelected, this);
+			this.util = openui5.googlemaps.MapUtils;
 			this.oPage = this.byId("page1");
 			this.oMap = this.byId("map1");
 			this.showCurrentPos = false;
 			this.showPolyline = false;
 			this.geoId = 0;
+			this.ochallengeActive = this.byId("challengeActive");
 		},
 
 		onMapReady: function (oEvent) {
@@ -53,9 +57,27 @@ sap.ui.define([
 		},
 
 		setLocation: function (bPublish) {
-			this.markerWindowOpen(this.selectedLocation);
+			if (this.pointReached === true) {
+				this.markerWindowOpen(this.selectedLocation);
+			} else {
+				this.markerSetPosition(this.selectedLocation);
+			}
 			sap.ui.getCore().getEventBus().publish("placeSelected", {
 				location: this.selectedLocation
+			});
+		},
+		
+		markerSetPosition: function (oData) {
+			var that = this;
+			this.oMap.getMarkers().forEach(function (oMarker) {
+				if (oMarker.getLat() === oData.lat && oMarker.getLng() === oData.lng) {
+					var result = /<h1\b[^>]*>(.*?)<\/h1>/.exec(oMarker.getInfo());
+					that.oPage.setTitle(result[1]);
+					that.oMap.map.setCenter(that.selectedLocation);
+				} else {
+					oMarker.infoWindowClose();
+				}
+				oMarker.removeListeners();                         
 			});
 		},
 
@@ -65,7 +87,9 @@ sap.ui.define([
 				if (oMarker.getLat() === oData.lat && oMarker.getLng() === oData.lng) {
 					var result = /<h1\b[^>]*>(.*?)<\/h1>/.exec(oMarker.getInfo());
 					that.oPage.setTitle(result[1]);
-					oMarker.infoWindowOpen();
+					if (that.ochallengeActive.getState() === true) {
+						oMarker.infoWindowOpen();
+					}
 				} else {
 					oMarker.infoWindowClose();
 				}
@@ -73,12 +97,8 @@ sap.ui.define([
 		},
 
 		onListSelected: function (sChannelId, sEventId, oData) {
+			this.pointReached = false;
 			this.selectedLocation = oData.context.getObject();
-			this.setLocation();
-		},
-
-		onMarkerClick: function (oEvent) {
-			this.selectedLocation = oEvent.getParameter("context").getObject();
 			this.setLocation();
 		},
 
@@ -127,6 +147,7 @@ sap.ui.define([
 		},
 
 		onShowCurrentPos: function (oEvent) {
+			var that = this;
 			this.showCurrentPos = !this.showCurrentPos;
 			if (this.showCurrentPos === true) {
 				this.geoId = navigator.geolocation.watchPosition(function (position) {
@@ -135,13 +156,21 @@ sap.ui.define([
 						lng: position.coords.longitude
 					};
 					// alert('Location found.\nLat:' + pos.lat + '\nLng:' + pos.lng);
-					MessageToast.show('Location found.\nLat:' + pos.lat + '\nLng:' + pos.lng);
+					// MessageToast.show('Location found.\nLat:' + pos.lat + '\nLng:' + pos.lng + '\nSelected Positon:' + that.selectedLocation.lat);
 					// this.oMap.setCenter(pos);
-					/*debugger;
-					if (this.selectedLocation.latitude === pos.latitude && this.selectedLocation.longitude === pos.longitude) {
-    					MessageToast.show("Congratulations, you reached the target");
-    					navigator.geolocation.clearWatch(this.geoId);
-					}*/
+					// debugger;
+					// if (that.selectedLocation.lat === pos.lat && that.selectedLocation.lng === pos.lng) {
+					if (that.util.latLngEqual(pos, that.selectedLocation) === true) {
+						// MessageToast.show("Congratulations, you reached the target");
+						// that.markerWindowOpen(that.selectedLocation);
+						that.pointReached = true;
+						that.setLocation();
+						navigator.geolocation.clearWatch(this.geoId);
+						that.onShowCurrentPos(false);
+						that.ochallengeActive.setState(false);
+					} else {
+						that.pointReached = false;
+					}
 				}, function () {
 					// alert('Error: The Geolocation service failed.');
 					MessageToast.show("Error: The Geolocation service failed.");

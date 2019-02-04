@@ -40,7 +40,7 @@ sap.ui.define(["jquery.sap.global", "google.maps"],
          * @returns {boolean} return 
          */
         MapUtils.floatEqual = function(nVal1, nVal2) {
-            return Math.abs(nVal1 - nVal2) < 0.000001;
+            return Math.abs(nVal1 - nVal2) < 0.0001;
         };
 
         /**

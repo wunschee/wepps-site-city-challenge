@@ -4,7 +4,7 @@
         "description": "First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
         "type": "Wünsch / Tóth",
         "image": "images/fast_ship.png",
-        "ABV": 13,
+        "completed": false,
         "lat": 46.130486,
         "lng": 18.323228
     }, {
@@ -12,7 +12,7 @@
         "description": "Second Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
         "type": "Wünsch / Tóth",
         "image": "images/fast_ship.png",
-        "ABV": 8,
+        "completed": false,
         "lat": 46.110782,
         "lng": 18.327091
     }, {
@@ -20,7 +20,7 @@
         "description": "Third Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
         "type": "Wünsch / Tóth",
         "image": "images/fast_ship.png",
-        "ABV": 10.25,
+        "completed": false,
         "lat": 46.085899,
         "lng": 18.270749
     }, {
@@ -28,7 +28,7 @@
         "description": "Fourth Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
         "type": "Wünsch / Tóth",
         "image": "images/fast_ship.png",
-        "ABV": 11.5,
+        "completed": false,
         "lat": 46.074093,
         "lng": 18.234602
     }, {
@@ -36,7 +36,7 @@
         "description": "Fifth Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
         "type": "Wünsch / Tóth",
         "image": "images/fast_ship.png",
-        "ABV": 13.4,
+        "completed": false,
         "lat": 46.071295,
         "lng": 18.233156
     }, {
@@ -44,7 +44,7 @@
         "description": "Last Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
         "type": "Wünsch / Tóth",
         "image": "images/fast_ship.png",
-        "ABV": 13,
+        "completed": false,
         "lat": 46.057905,
         "lng": 18.229339
     }]
