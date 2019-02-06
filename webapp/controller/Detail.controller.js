@@ -22,6 +22,7 @@ sap.ui.define([
 		},
 
 		onMapReady: function (oEvent) {
+			var that = this;
 			if (this.selectedLocation === undefined) {
 				var aBeaches = this.getView().getModel().getData().locations;
 
@@ -39,6 +40,10 @@ sap.ui.define([
 					locations: nBeaches
 				});
 				this.setupPolylines();
+				// register button click event handling
+				$(document).on("click", "#nextButton", function (event) {
+				    that.onNextPressed();
+				});
 			}
 			this.setLocation();
 		},
@@ -94,6 +99,10 @@ sap.ui.define([
 					oMarker.infoWindowClose();
 				}
 			});
+		},
+		
+		onNextPressed: function () {
+			alert("Next Point...");
 		},
 
 		onListSelected: function (sChannelId, sEventId, oData) {

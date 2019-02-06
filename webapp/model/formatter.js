@@ -7,13 +7,15 @@ sap.ui.define(["jquery.sap.global"], function (jQuery) {
 				'<div class="marker-inner-win"><span class="info-content">' +
 				'<div style="float:left"><h1 class="marker-heading">' + oV1 + '</h1>' +
 				'' + oV2 + '<br><br>' + oV3 + '</div><div style="float:right">' +
-				'<img width="250px" src="' + oV4 + '">' +
+				'<img width="250px" src="' + oV4 + '"><br><br><button id="nextButton">Next...</button>' +
 				'</div></span></div></div>');
 			return str[0].outerHTML;
 		},
+		
 		getMarkerIcon: function() {
 			return jQuery.sap.getModulePath("openui5.googlemaps.themes." + "base") + "/img/pinkball.png";
 		},
+		
 		roleText: function (sStatus) {
 			// debugger;
 			var oModel = new sap.ui.model.resource.ResourceModel({
@@ -29,6 +31,7 @@ sap.ui.define(["jquery.sap.global"], function (jQuery) {
 					return sStatus;
 			}
 		},
+		
 		roleColor: function (sStatus) {
 			// debugger;
 			switch (sStatus) {
@@ -40,6 +43,7 @@ sap.ui.define(["jquery.sap.global"], function (jQuery) {
 					return sStatus;
 			}
 		},
+		
 		statusText: function (sStatus) {
 			// debugger;
 			switch (sStatus) {
@@ -59,6 +63,7 @@ sap.ui.define(["jquery.sap.global"], function (jQuery) {
 					return sStatus;
 			}
 		},
+		
 		productstatusText: function (sStatus) {
 			var oModel = new sap.ui.model.resource.ResourceModel({
 				bundleUrl: "i18n/i18n.properties"
