@@ -24,20 +24,23 @@ sap.ui.define([
 		onMapReady: function (oEvent) {
 			var that = this;
 			if (this.selectedLocation === undefined) {
-				var aBeaches = this.getView().getModel().getData().locations;
-
+				var aLocations = this.getView().getModel().getData().locations;
 				// set flag image
-				var nBeaches = aBeaches.map(function (oBeach) {
+				var oLocations = aLocations.map(function (oBeach) {
 					oBeach.icon = this._getImage();
 					return oBeach;
 				}.bind(this));
-
+				// set style
 				this._styleMap();
-
-				// this.selectedLocation = aBeaches[aBeaches.length - 1]; //Cronulla
-				this.selectedLocation = aBeaches[0];
+				// set initial location
+				for (var i = 0; i < aLocations.length; i++) {
+					if (aLocations[i].completed === false) {
+						this.selectedLocation = aLocations[i];
+						break;
+					}
+				}
 				this.getView().getModel().setData({
-					locations: nBeaches
+					locations: oLocations
 				});
 				this.setupPolylines();
 				// register button click event handling
@@ -58,6 +61,19 @@ sap.ui.define([
 				oSplitApp.toMaster(oMaster, "flip");
 			} else {
 				oSplitApp.showMaster();
+			}
+		},
+		
+		setFirstNotCompletedLocation: function () {
+			debugger;
+			var aLocations = this.getView().getModel().getData().locations;
+			for (var i = 0; i < aLocations.length; i++) {
+				if (aLocations[i].completed === false) {
+					this.pointReached = false;
+					this.selectedLocation = aLocations[i];
+					this.setLocation();
+					break;
+				}
 			}
 		},
 
@@ -102,7 +118,8 @@ sap.ui.define([
 		},
 		
 		onNextPressed: function () {
-			alert("Next Point...");
+			// alert("Next Point...");
+			this.setFirstNotCompletedLocation();
 		},
 
 		onListSelected: function (sChannelId, sEventId, oData) {

@@ -4,7 +4,7 @@
         "description": "First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
         "type": "Wünsch / Tóth",
         "image": "images/fast_ship.png",
-        "completed": false,
+        "completed": true,
         "lat": 46.130486,
         "lng": 18.323228
     }, {
