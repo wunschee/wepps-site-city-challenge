@@ -3,7 +3,7 @@
 	<Page title="{i18n>title}">
         <List
             id="places"
-            items="{/locations}"
+            items="{path: '/locations', filters: [{ path: 'type', operator: 'EQ', value1: 'location'}]}"
             mode="SingleSelectMaster"
             selectionChange="handleListSelect">
             <StandardListItem

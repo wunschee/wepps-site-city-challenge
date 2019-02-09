@@ -20,25 +20,39 @@ sap.ui.define([
 			this.geoId = 0;
 			this.ochallengeActive = this.byId("challengeActive");
 		},
+		
+		onAfterRendering: function () {
+			var that = this;
+			navigator.geolocation.getCurrentPosition(function (position) {
+				var pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+				var oModel = that.getView().getModel();
+				oModel.setProperty("/locations/0/lat", pos.lat);
+				oModel.setProperty("/locations/0/lng", pos.lng);
+			}, function () {
+				MessageToast.show("Error: The Geolocation service failed.");
+			}, {
+				enableHighAccuracy: true,
+				maximumAge: 10e3,
+				timeout: 20e3
+			});
+		},
 
 		onMapReady: function (oEvent) {
 			var that = this;
 			if (this.selectedLocation === undefined) {
 				var aLocations = this.getView().getModel().getData().locations;
 				// set flag image
-				var oLocations = aLocations.map(function (oBeach) {
-					oBeach.icon = this._getImage();
-					return oBeach;
+				var oLocations = aLocations.map(function (oLocation) {
+					oLocation.icon = this._getImage(oLocation.type);
+					return oLocation;
 				}.bind(this));
 				// set style
 				this._styleMap();
 				// set initial location
-				for (var i = 0; i < aLocations.length; i++) {
-					if (aLocations[i].completed === false) {
-						this.selectedLocation = aLocations[i];
-						break;
-					}
-				}
+				this.selectedLocation = this.getFirstNotCompletedLocation();
 				this.getView().getModel().setData({
 					locations: oLocations
 				});
@@ -64,19 +78,30 @@ sap.ui.define([
 			}
 		},
 		
-		setFirstNotCompletedLocation: function () {
-			debugger;
+		getFirstNotCompletedLocation: function () {
 			var aLocations = this.getView().getModel().getData().locations;
+			var oLocation = null;
 			for (var i = 0; i < aLocations.length; i++) {
-				if (aLocations[i].completed === false) {
-					this.pointReached = false;
-					this.selectedLocation = aLocations[i];
-					this.setLocation();
+				if (aLocations[i].completed === false && aLocations[i].type === "location") {
+					oLocation = aLocations[i];
 					break;
 				}
 			}
+			return oLocation;
 		},
-
+		
+		getFirstNotCompletedLocationIndex: function () {
+			var aLocations = this.getView().getModel().getData().locations;
+			var iIndex = 0;
+			for (var i = 0; i < aLocations.length; i++) {
+				if (aLocations[i].completed === false && aLocations[i].type === "location") {
+					iIndex = i;
+					break;
+				}
+			}
+			return iIndex;
+		},
+		
 		setLocation: function (bPublish) {
 			if (this.pointReached === true) {
 				this.markerWindowOpen(this.selectedLocation);
@@ -104,11 +129,13 @@ sap.ui.define([
 
 		markerWindowOpen: function (oData) {
 			var that = this;
+			var oModel = that.getView().getModel();
 			this.oMap.getMarkers().forEach(function (oMarker) {
 				if (oMarker.getLat() === oData.lat && oMarker.getLng() === oData.lng) {
 					var result = /<h1\b[^>]*>(.*?)<\/h1>/.exec(oMarker.getInfo());
 					that.oPage.setTitle(result[1]);
 					if (that.ochallengeActive.getState() === true) {
+						oModel.setProperty("/locations/" + that.getFirstNotCompletedLocationIndex() + "/completed", true);
 						oMarker.infoWindowOpen();
 					}
 				} else {
@@ -118,8 +145,9 @@ sap.ui.define([
 		},
 		
 		onNextPressed: function () {
-			// alert("Next Point...");
-			this.setFirstNotCompletedLocation();
+			this.pointReached = false;
+			this.selectedLocation = this.getFirstNotCompletedLocation();
+			this.setLocation();
 		},
 
 		onListSelected: function (sChannelId, sEventId, oData) {
@@ -131,10 +159,12 @@ sap.ui.define([
 		getPaths: function () {
 			var aPaths = [];
 			this.getView().getModel().getData().locations.forEach(function (obj) {
-				aPaths.push({
-					lat: obj.lat,
-					lng: obj.lng
-				});
+				if (obj.type === "location") {
+					aPaths.push({
+						lat: obj.lat,
+						lng: obj.lng
+					});
+				}
 			});
 			return aPaths;
 		},
@@ -181,14 +211,11 @@ sap.ui.define([
 						lat: position.coords.latitude,
 						lng: position.coords.longitude
 					};
-					// alert('Location found.\nLat:' + pos.lat + '\nLng:' + pos.lng);
-					// MessageToast.show('Location found.\nLat:' + pos.lat + '\nLng:' + pos.lng + '\nSelected Positon:' + that.selectedLocation.lat);
-					// this.oMap.setCenter(pos);
-					// debugger;
-					// if (that.selectedLocation.lat === pos.lat && that.selectedLocation.lng === pos.lng) {
+					var oModel = that.getView().getModel();
+					oModel.setProperty("/locations/0/lat", pos.lat);
+					oModel.setProperty("/locations/0/lng", pos.lng);
+					// check if location reached
 					if (that.util.latLngEqual(pos, that.selectedLocation) === true) {
-						// MessageToast.show("Congratulations, you reached the target");
-						// that.markerWindowOpen(that.selectedLocation);
 						that.pointReached = true;
 						that.setLocation();
 						navigator.geolocation.clearWatch(this.geoId);
@@ -198,7 +225,6 @@ sap.ui.define([
 						that.pointReached = false;
 					}
 				}, function () {
-					// alert('Error: The Geolocation service failed.');
 					MessageToast.show("Error: The Geolocation service failed.");
 				}, {
 					enableHighAccuracy: true,
@@ -210,7 +236,7 @@ sap.ui.define([
 			}
 		},
 
-		_getImage: function () {
+		_getImage: function (oType) {
 			// return {
 			// 	url: "./images/fast_ship.png",
 			// 	size: new google.maps.Size(20, 32),
@@ -219,7 +245,13 @@ sap.ui.define([
 			// 	// The anchor for this image is the base of the flagpole at (0, 32).
 			// 	anchor: new google.maps.Point(0, 32)
 			// };
-			return jQuery.sap.getModulePath("openui5.googlemaps.themes." + "base") + "/img/pinkball.png";
+			var sImage;
+			if (oType === "user") {
+				sImage = "/img/m1.png";
+			} else {
+				sImage = "/img/pinkball.png";
+			}
+			return jQuery.sap.getModulePath("openui5.googlemaps.themes." + "base") + sImage;
 		},
 
 		_styleMap: function () {

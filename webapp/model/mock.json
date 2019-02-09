@@ -1,16 +1,24 @@
 {
     "locations": [{
+        "name": "User",
+        "description": "User location",
+        "type": "user",
+        "image": "images/fast_ship.png",
+        "completed": false,
+        "lat": 46.130400,
+        "lng": 18.323200
+    }, {
         "name": "Well Street",
         "description": "First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
-        "type": "Wünsch / Tóth",
+        "type": "location",
         "image": "images/fast_ship.png",
-        "completed": true,
+        "completed": false,
         "lat": 46.130486,
         "lng": 18.323228
     }, {
         "name": "Crossroad",
         "description": "Second Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
-        "type": "Wünsch / Tóth",
+        "type": "location",
         "image": "images/fast_ship.png",
         "completed": false,
         "lat": 46.110782,
@@ -18,7 +26,7 @@
     }, {
         "name": "Third Point",
         "description": "Third Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
-        "type": "Wünsch / Tóth",
+        "type": "location",
         "image": "images/fast_ship.png",
         "completed": false,
         "lat": 46.085899,
@@ -26,7 +34,7 @@
     }, {
         "name": "Fourth Point",
         "description": "Fourth Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
-        "type": "Wünsch / Tóth",
+        "type": "location",
         "image": "images/fast_ship.png",
         "completed": false,
         "lat": 46.074093,
@@ -34,7 +42,7 @@
     }, {
         "name": "Fifth Point",
         "description": "Fifth Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
-        "type": "Wünsch / Tóth",
+        "type": "location",
         "image": "images/fast_ship.png",
         "completed": false,
         "lat": 46.071295,
@@ -42,7 +50,7 @@
     }, {
         "name": "Last Point",
         "description": "Last Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
-        "type": "Wünsch / Tóth",
+        "type": "location",
         "image": "images/fast_ship.png",
         "completed": false,
         "lat": 46.057905,
