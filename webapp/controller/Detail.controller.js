@@ -78,9 +78,20 @@ sap.ui.define([
 			}
 		},
 		
+		isNextLocationAvailable: function () {
+			var isAvailable;
+			var aLocations = this.getView().getModel().getData().locations;
+			if (this.getFirstNotCompletedLocationIndex() < aLocations.length) {
+				isAvailable = true;
+			} else {
+				isAvailable = false;
+			}
+			return isAvailable;
+		},
+		
 		getFirstNotCompletedLocation: function () {
 			var aLocations = this.getView().getModel().getData().locations;
-			var oLocation = null;
+			var oLocation;
 			for (var i = 0; i < aLocations.length; i++) {
 				if (aLocations[i].completed === false && aLocations[i].type === "location") {
 					oLocation = aLocations[i];
@@ -92,7 +103,7 @@ sap.ui.define([
 		
 		getFirstNotCompletedLocationIndex: function () {
 			var aLocations = this.getView().getModel().getData().locations;
-			var iIndex = 0;
+			var iIndex;
 			for (var i = 0; i < aLocations.length; i++) {
 				if (aLocations[i].completed === false && aLocations[i].type === "location") {
 					iIndex = i;
@@ -129,13 +140,11 @@ sap.ui.define([
 
 		markerWindowOpen: function (oData) {
 			var that = this;
-			var oModel = that.getView().getModel();
 			this.oMap.getMarkers().forEach(function (oMarker) {
 				if (oMarker.getLat() === oData.lat && oMarker.getLng() === oData.lng) {
 					var result = /<h1\b[^>]*>(.*?)<\/h1>/.exec(oMarker.getInfo());
 					that.oPage.setTitle(result[1]);
 					if (that.ochallengeActive.getState() === true) {
-						oModel.setProperty("/locations/" + that.getFirstNotCompletedLocationIndex() + "/completed", true);
 						oMarker.infoWindowOpen();
 					}
 				} else {
@@ -145,9 +154,15 @@ sap.ui.define([
 		},
 		
 		onNextPressed: function () {
+			var oModel = this.getView().getModel();
+			oModel.setProperty("/locations/" + this.getFirstNotCompletedLocationIndex() + "/completed", true);
 			this.pointReached = false;
-			this.selectedLocation = this.getFirstNotCompletedLocation();
-			this.setLocation();
+			if (this.isNextLocationAvailable() === true) {
+				this.selectedLocation = this.getFirstNotCompletedLocation();
+				this.setLocation();
+			} else {
+				MessageToast.show("Congratulations! You have completed the Challenge.");
+			}
 		},
 
 		onListSelected: function (sChannelId, sEventId, oData) {
