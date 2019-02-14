@@ -221,6 +221,10 @@ sap.ui.define([
 			var that = this;
 			this.showCurrentPos = !this.showCurrentPos;
 			if (this.showCurrentPos === true) {
+				if (this.selectedLocation !== this.getFirstNotCompletedLocation()) {
+					this.selectedLocation = this.getFirstNotCompletedLocation();
+					this.setLocation();
+				}
 				this.geoId = navigator.geolocation.watchPosition(function (position) {
 					var pos = {
 						lat: position.coords.latitude,

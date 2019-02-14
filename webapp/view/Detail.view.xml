@@ -3,7 +3,7 @@
 	<Page id="page1" enableScrolling="false" showNavButton="{device>/system/phone}" navButtonPress="onNavBack">
         <content>
             <gmaps:Map id="map1" height="80vh" zoom="20" lat="{/locations/0/lat}" lng="{/locations/0/lng}" markers="{/locations}" ready="onMapReady" fitToMarkers="false" apiKey="AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0">
-                <gmaps:Marker id="marker1" lat="{lat}" lng="{lng}" info="{parts:[{path:'name'},{path:'description'},{path:'type'},{path:'image'}], formatter:'.formatter.info'}" icon="{icon}" animation="0"></gmaps:Marker>
+                <gmaps:Marker id="marker1" lat="{lat}" lng="{lng}" info="{parts:[{path:'name'},{path:'description'},{path:'email'},{path:'image'}], formatter:'.formatter.info'}" icon="{icon}" animation="0"></gmaps:Marker>
             </gmaps:Map>
         </content>
         <footer>
