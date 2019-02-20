@@ -36,7 +36,7 @@
 	},
 	"sap.ui5": {
 		"rootView": {
-			"viewName": "city.challenge.view.Root",
+			"viewName": "city.challenge.view.Main",
 			"type": "XML"
 		},
 		"dependencies": {
@@ -64,11 +64,9 @@
 			}
 		},
 		"resources": {
-			"css": [
-				{
-					"uri": "css/style.css"
-				}
-			]
+			"css": [{
+				"uri": "css/style.css"
+			}]
 		},
 		"routing": {
 			"config": {
@@ -76,34 +74,41 @@
 				"viewType": "XML",
 				"async": true,
 				"viewPath": "city.challenge.view",
-				"controlAggregation": "pages",
-				"controlId": "idRoot",
-				"clearControlAggregation": false,
-				"bypassed": {
-					"target": ["Master", "Detail"]
-				}
+				"targetAggregation": "pages",
+				"clearTarget": false
 			},
-			"routes": [
-				{
-					"pattern": "",
-					"name": "master",
-					"target": ["Master", "Detail"]
-				}
-			],
-			"targets": {
-				"Master": {
-					"viewType": "XML",
-					"controlAggregation": "masterPages",
-					"viewName": "Master",
-					"viewLevel": 1
-				},
-				"Detail": {
-					"viewType": "XML",
-					"controlAggregation": "detailPages",
-					"viewName": "Detail",
-					"viewLevel": 2
-				}
-			}
+			"routes": [{
+				"pattern": "",
+				"name": "App",
+				"view": "App",
+				"targetControl": "app",
+				"targetAggregation": "pages"
+			}, {
+				"pattern": "Challenge",
+				"name": "Challenge",
+				"view": "Challenge",
+				"targetControl": "app",
+				"targetAggregation": "pages"
+			}, {
+				"pattern": "Root",
+				"name": "Root",
+				"view": "Root",
+				"targetControl": "app",
+				"targetAggregation": "pages",
+				"subroutes": [{
+					"pattern": "Root/",
+					"name": "Master",
+					"view": "Master",
+					"targetControl": "idRoot",
+					"targetAggregation": "masterPages",
+					"subroutes": [{
+						"pattern": "Root/",
+						"name": "Detail",
+						"view": "Detail",
+						"targetAggregation": "detailPages"
+					}]
+				}]
+			}]
 		}
 	}
 }

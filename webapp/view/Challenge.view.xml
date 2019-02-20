@@ -1,0 +1,21 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="city.challenge.controller.Challenge"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="{i18n>challengeTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<List
+			            id="routes"
+			            items="{path: '/locations', filters: [{ path: 'type', operator: 'EQ', value1: 'location'}]}"
+			            mode="SingleSelectMaster">
+			            <StandardListItem
+			                title="{name}"
+			                description="{type}"
+			                icon="./googlemaps/themes/base/img/pinkball.png" />
+			        </List>
+					<Button text="{i18n>challengeGoButton}" press="onGo" />
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

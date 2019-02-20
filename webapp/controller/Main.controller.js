@@ -3,9 +3,9 @@ sap.ui.define([
 ], function (Controller) {
 	"use strict";
 
-	return Controller.extend("city.challenge.controller.Root", {
+	return Controller.extend("city.challenge.controller.Main", {
 		onInit: function () {
-			
+
 		}
 	});
 });

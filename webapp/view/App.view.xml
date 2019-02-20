@@ -1,0 +1,40 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="city.challenge.controller.App"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:form="sap.ui.layout.form">
+	<App>
+		<pages>
+			<Page title="{i18n>appTitle}">
+				<content>
+					<form:SimpleForm id="newideaForm"
+			            editable="true"
+			            title="{i18n>appLogin}"
+						layout="ResponsiveGridLayout"
+						labelSpanXL="4"
+						labelSpanL="3"
+						labelSpanM="4"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="4"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="2"
+						columnsL="1"
+						columnsM="1"
+						singleContainerFullSize="false"
+						ariaLabelledBy="Title1">
+			            <form:content>
+			                <Label text="{i18n>appLoginName}" required="true" />
+							<Input />
+							<Label text="{i18n>appLoginPassword}" required="true" />
+							<Input />
+							<Label />
+							<Button
+		                    	text="{i18n>appLogin}"
+		                    	press="onLogin" />
+			            </form:content>
+			        </form:SimpleForm>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

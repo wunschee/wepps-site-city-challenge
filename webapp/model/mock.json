@@ -1,5 +1,5 @@
 {
-    "locations": [{
+	"locations": [{
         "name": "User",
         "description": "User location",
         "type": "user",

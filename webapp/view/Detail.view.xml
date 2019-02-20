@@ -9,11 +9,11 @@
         <footer>
             <Bar>
             	<contentLeft>
-                    <Label text="Challenge: " />
+                    <Label text="{i18n>detailSwitchChallenge}" />
                     <Switch id="challengeActive" change="onShowCurrentPos" state="false" />
                 </contentLeft>
                 <contentRight>
-                    <Label text="Direction: " />
+                    <Label text="{i18n>detailSwitchDirection}" />
                     <Switch change="onShowPolyline" state="false" />
                 </contentRight>
             </Bar>
