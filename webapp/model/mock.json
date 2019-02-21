@@ -1,66 +1,91 @@
 {
+	"routes": [{
+		"routeId": 1,
+		"name": "First route",
+		"description": "First route description",
+		"type": "user"
+	}, {
+		"id": 2,
+		"name": "Second route",
+		"description": "Second route description",
+		"type": "user"
+	}],
 	"locations": [{
-        "name": "User",
-        "description": "User location",
-        "type": "user",
-        "email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
-        "image": "images/fast_ship.png",
-        "completed": false,
-        "lat": 46.130400,
-        "lng": 18.323200
-    }, {
-        "name": "Well Street",
-        "description": "First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
-        "type": "location",
-        "email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
-        "image": "images/fast_ship.png",
-        "completed": false,
-        "lat": 46.130486,
-        "lng": 18.323228
-    }, {
-        "name": "Crossroads",
-        "description": "Second Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
-        "type": "location",
-        "email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
-        "image": "images/fast_ship.png",
-        "completed": false,
-        "lat": 46.110782,
-        "lng": 18.327091
-    }, {
-        "name": "Third Point",
-        "description": "Third Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
-        "type": "location",
-        "email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
-        "image": "images/fast_ship.png",
-        "completed": false,
-        "lat": 46.085899,
-        "lng": 18.270749
-    }, {
-        "name": "Fourth Point",
-        "description": "Fourth Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
-        "type": "location",
-        "email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
-        "image": "images/fast_ship.png",
-        "completed": false,
-        "lat": 46.074093,
-        "lng": 18.234602
-    }, {
-        "name": "Fifth Point",
-        "description": "Fifth Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
-        "type": "location",
-        "email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
-        "image": "images/fast_ship.png",
-        "completed": false,
-        "lat": 46.071295,
-        "lng": 18.233156
-    }, {
-        "name": "Last Point",
-        "description": "Last Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
-        "type": "location",
-        "email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
-        "image": "images/fast_ship.png",
-        "completed": false,
-        "lat": 46.057905,
-        "lng": 18.229339
-    }]
+		"locationId": 1,
+		"routeId": 1,
+		"name": "User",
+		"description": "User location",
+		"type": "user",
+		"email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
+		"image": "images/fast_ship.png",
+		"completed": false,
+		"lat": 46.130400,
+		"lng": 18.323200
+	}, {
+		"locationId": 2,
+		"routeId": 1,
+		"name": "Well Street",
+		"description": "First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
+		"type": "location",
+		"email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
+		"image": "images/fast_ship.png",
+		"completed": false,
+		"lat": 46.130486,
+		"lng": 18.323228
+	}, {
+		"locationId": 3,
+		"routeId": 1,
+		"name": "Crossroads",
+		"description": "Second Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
+		"type": "location",
+		"email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
+		"image": "images/fast_ship.png",
+		"completed": false,
+		"lat": 46.110782,
+		"lng": 18.327091
+	}, {
+		"locationId": 4,
+		"routeId": 1,
+		"name": "Third Point",
+		"description": "Third Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
+		"type": "location",
+		"email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
+		"image": "images/fast_ship.png",
+		"completed": false,
+		"lat": 46.085899,
+		"lng": 18.270749
+	}, {
+		"locationId": 5,
+		"routeId": 1,
+		"name": "Fourth Point",
+		"description": "Fourth Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
+		"type": "location",
+		"email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
+		"image": "images/fast_ship.png",
+		"completed": false,
+		"lat": 46.074093,
+		"lng": 18.234602
+	}, {
+		"locationId": 6,
+		"routeId": 1,
+		"name": "Fifth Point",
+		"description": "Fifth Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
+		"type": "location",
+		"email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
+		"image": "images/fast_ship.png",
+		"completed": false,
+		"lat": 46.071295,
+		"lng": 18.233156
+	}, {
+		"locationId": 7,
+		"routeId": 1,
+		"name": "Last Point",
+		"description": "Last Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.<br><br>First Point: I'd like to add a float:left logo next to my address in the infowindow, how can I do that? Here is my code.",
+		"type": "location",
+		"email": "<a href='mailto:wunsch.peter@gmail.com'>eM@il</a>",
+		"image": "images/fast_ship.png",
+		"completed": false,
+		"lat": 46.057905,
+		"lng": 18.229339
+	}]
 }

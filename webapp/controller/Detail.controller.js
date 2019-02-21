@@ -41,7 +41,7 @@ sap.ui.define([
 		},
 
 		onMapReady: function (oEvent) {
-			debugger;
+			// debugger;
 			var that = this;
 			if (this.selectedLocation === undefined) {
 				var aLocations = this.getView().getModel().getData().locations;
@@ -91,7 +91,7 @@ sap.ui.define([
 		},
 		
 		getFirstNotCompletedLocation: function () {
-			debugger;
+			// debugger;
 			var aLocations = this.getView().getModel().getData().locations;
 			var oLocation;
 			for (var i = 0; i < aLocations.length; i++) {

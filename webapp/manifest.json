@@ -64,9 +64,11 @@
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -74,41 +76,67 @@
 				"viewType": "XML",
 				"async": true,
 				"viewPath": "city.challenge.view",
-				"targetAggregation": "pages",
-				"clearTarget": false
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"bypassed": {
+					"target": "notFound"
+				}
 			},
-			"routes": [{
-				"pattern": "",
-				"name": "App",
-				"view": "App",
-				"targetControl": "app",
-				"targetAggregation": "pages"
-			}, {
-				"pattern": "Challenge",
-				"name": "Challenge",
-				"view": "Challenge",
-				"targetControl": "app",
-				"targetAggregation": "pages"
-			}, {
-				"pattern": "Root",
-				"name": "Root",
-				"view": "Root",
-				"targetControl": "app",
-				"targetAggregation": "pages",
-				"subroutes": [{
-					"pattern": "Root/",
-					"name": "Master",
-					"view": "Master",
-					"targetControl": "idRoot",
-					"targetAggregation": "masterPages",
-					"subroutes": [{
-						"pattern": "Root/",
-						"name": "Detail",
-						"view": "Detail",
-						"targetAggregation": "detailPages"
-					}]
-				}]
-			}]
+			"routes": [
+				{
+					"pattern": "",
+					"name": "app",
+					"target": "app"
+				},
+				{
+					"pattern": "challenge",
+					"name": "challenge",
+					"target": "challenge"
+				},
+				{
+					"pattern": "root/{routeId}",
+					"name": "root",
+					"target": [
+						"master",
+						"detail"
+					]
+				}
+			],
+			"targets": {
+				"app": {
+					"viewName": "App",
+					"viewLevel": 0
+				},
+				"challenge": {
+					"viewName": "Challenge",
+					"viewLevel": 1
+				},
+				"root": {
+					"viewName": "Root",
+					"viewLevel": 1
+				},
+				"master": {
+					"parent": "root",
+					"viewName": "Master",
+					"controlId": "idRoot",
+					"controlAggregation": "masterPages",
+					"viewLevel": 1,
+					"transition": "flip"
+				},
+				"detail": {
+					"parent": "root",
+					"viewName": "Detail",
+					"controlId": "idRoot",
+					"controlAggregation": "detailPages",
+					"viewLevel": 2,
+					"transition": "flip"
+				},
+				"notFound": {
+					"viewName": "NotFound",
+					"viewLevel": 0,
+					"transition": "show"
+				}
+			}
 		}
 	}
 }

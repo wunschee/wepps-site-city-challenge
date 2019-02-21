@@ -10,7 +10,7 @@ sap.ui.define([
 		
 		onLogin: function () {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("Challenge");
+			oRouter.navTo("challenge");
 		}
 	});
 });

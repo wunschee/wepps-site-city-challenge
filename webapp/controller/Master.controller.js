@@ -6,21 +6,21 @@ sap.ui.define([
 
 	return Controller.extend("city.challenge.controller.Master", {
 		onInit: function () {
-			debugger;
+			// debugger;
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.getRoute("Root").attachPatternMatched(this._onObjectMatched, this);
+			oRouter.getRoute("root").attachPatternMatched(this._onObjectMatched, this);
 			this.list = this.byId("places");
             sap.ui.getCore().getEventBus().subscribe("placeSelected", this.onPlaceSelected, this);
 		},
 		
 		_onObjectMatched: function (oEvent) {
-			debugger;
+			// debugger;
 			_routeId = parseInt(oEvent.getParameter("arguments").routeId);
 		},
 		
 		onNavBack: function () {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("Challenge");
+			oRouter.navTo("challenge");
 		},
 		
 		handleListSelect: function (oEvent) {

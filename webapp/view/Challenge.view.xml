@@ -6,11 +6,11 @@
 				<content>
 					<List
 			            id="routes"
-			            items="{path: '/locations', filters: [{ path: 'type', operator: 'EQ', value1: 'location'}]}"
+			            items="{path: '/routes', filters: [{ path: 'type', operator: 'EQ', value1: 'user'}]}"
 			            mode="SingleSelectMaster">
 			            <StandardListItem
 			                title="{name}"
-			                description="{type}"
+			                description="{description}"
 			                icon="./googlemaps/themes/base/img/pinkball.png" />
 			        </List>
 					<Button text="{i18n>challengeGoButton}" press="onGo" />

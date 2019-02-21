@@ -9,17 +9,17 @@ sap.ui.define([
 		},
 
 		onGo: function () {
-			debugger;
+			// debugger;
 			var oItem = this.getView().byId("routes");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("Master", {
-				routeId: oItem.getSelectedItems()[0].getBindingContext().getProperty("type")
+			oRouter.navTo("root", {
+				routeId: oItem.getSelectedItems()[0].getBindingContext().getProperty("id")
 			});
 		},
 
 		onNavBack: function () {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("App");
+			oRouter.navTo("app");
 		}
 	});
 });
