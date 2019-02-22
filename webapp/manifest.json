@@ -52,7 +52,7 @@
 			"cozy": true
 		},
 		"models": {
-			"": {
+			"odata": {
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "model/mock.json"
 			},
@@ -113,14 +113,14 @@
 				},
 				"root": {
 					"viewName": "Root",
-					"viewLevel": 1
+					"viewLevel": 2
 				},
 				"master": {
 					"parent": "root",
 					"viewName": "Master",
 					"controlId": "idRoot",
 					"controlAggregation": "masterPages",
-					"viewLevel": 1,
+					"viewLevel": 2,
 					"transition": "flip"
 				},
 				"detail": {

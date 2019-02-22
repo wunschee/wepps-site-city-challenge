@@ -1,16 +1,7 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="city.challenge.controller.Master"
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="{i18n>masterListTitle}" showNavButton="true" navButtonPress="onNavBack">
-        <List
-            id="places"
-            items="{path: '/locations', filters: [{ path: 'type', operator: 'EQ', value1: 'location'}]}"
-            mode="SingleSelectMaster"
-            selectionChange="handleListSelect">
-            <StandardListItem
-                title="{name}"
-                description="{description}"
-                icon="./googlemaps/themes/base/img/pinkball.png" />
-        </List>
+        <List id="places" mode="SingleSelectMaster" selectionChange="handleListSelect" />
         <footer>
             <Bar>
             </Bar>

@@ -2,8 +2,8 @@
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:gmaps="openui5.googlemaps">
 	<Page id="page1" enableScrolling="false" showNavButton="{device>/system/phone}" navButtonPress="onNavBack">
         <content>
-            <gmaps:Map id="map1" height="80vh" zoom="20" lat="{/locations/0/lat}" lng="{/locations/0/lng}" markers="{/locations}" ready="onMapReady" fitToMarkers="false" apiKey="AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0">
-                <gmaps:Marker id="marker1" lat="{lat}" lng="{lng}" info="{parts:[{path:'name'},{path:'description'},{path:'email'},{path:'image'}], formatter:'.formatter.info'}" icon="{icon}" animation="0"></gmaps:Marker>
+            <gmaps:Map id="map1" height="80vh" zoom="20" lat="{odata>/locations/0/lat}" lng="{odata>/locations/0/lng}" markers="{odata>/locations}" ready="onMapReady" fitToMarkers="false" apiKey="AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0">
+                <gmaps:Marker id="marker1" lat="{odata>lat}" lng="{odata>lng}" info="{parts:[{path:'odata>name'},{path:'odata>description'},{path:'odata>email'},{path:'odata>image'}], formatter:'.formatter.info'}" icon="{odata>icon}" animation="0"></gmaps:Marker>
             </gmaps:Map>
         </content>
         <footer>

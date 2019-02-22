@@ -11,11 +11,34 @@ sap.ui.define([
 			oRouter.getRoute("root").attachPatternMatched(this._onObjectMatched, this);
 			this.list = this.byId("places");
             sap.ui.getCore().getEventBus().subscribe("placeSelected", this.onPlaceSelected, this);
+        	this.oLocationsListTemplate = new sap.m.StandardListItem({
+                title: "{odata>name}",
+                description: "{odata>description}",
+                icon: "./googlemaps/themes/base/img/pinkball.png"
+            });
 		},
 		
 		_onObjectMatched: function (oEvent) {
-			// debugger;
+			debugger;
 			_routeId = parseInt(oEvent.getParameter("arguments").routeId);
+			var oLocationsList = this.getView().byId("places");
+			oLocationsList.unbindAggregation("items");
+			oLocationsList.bindAggregation("items", {
+				path: "odata>/locations",
+				filters: [
+					new sap.ui.model.Filter({
+						path: "routeId",
+						operator: "EQ",
+						value1: _routeId
+					}),
+					new sap.ui.model.Filter({
+						path: "type",
+						operator: "EQ",
+						value1: "location"
+					})
+				],
+				template: this.oLocationsListTemplate
+			});
 		},
 		
 		onNavBack: function () {
@@ -25,7 +48,7 @@ sap.ui.define([
 		
 		handleListSelect: function (oEvent) {
             sap.ui.getCore().getEventBus().publish("listSelected", {
-                context: oEvent.getParameter("listItem").getBindingContext()
+                context: oEvent.getParameter("listItem").getBindingContext("odata")
             });
             // nav to detail / show detail / whatever
 		    var oSplitApp = this.getView().getParent().getParent();

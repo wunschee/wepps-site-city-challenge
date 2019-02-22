@@ -6,11 +6,14 @@ sap.ui.define([
 	// "use strict";
 	this.selectedLocation = null;
 	this.pointReached = false;
+	var _routeId;
 
 	return Controller.extend("city.challenge.controller.Detail", {
 		formatter: formatter,
 
 		onInit: function () {
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.getRoute("root").attachPatternMatched(this._onObjectMatched, this);
 			sap.ui.getCore().getEventBus().subscribe("listSelected", this.onListSelected, this);
 			this.util = openui5.googlemaps.MapUtils;
 			this.oPage = this.byId("page1");
@@ -21,6 +24,15 @@ sap.ui.define([
 			this.ochallengeActive = this.byId("challengeActive");
 		},
 		
+		_onObjectMatched: function (oEvent) {
+			debugger;
+			_routeId = parseInt(oEvent.getParameter("arguments").routeId);
+			this.getView().bindElement({
+				path: "/locations/" + _routeId,
+				model: "odata"
+			});
+		},
+		
 		onAfterRendering: function () {
 			var that = this;
 			navigator.geolocation.getCurrentPosition(function (position) {
@@ -28,7 +40,7 @@ sap.ui.define([
 					lat: position.coords.latitude,
 					lng: position.coords.longitude
 				};
-				var oModel = that.getView().getModel();
+				var oModel = that.getView().getModel("odata");
 				oModel.setProperty("/locations/0/lat", pos.lat);
 				oModel.setProperty("/locations/0/lng", pos.lng);
 			}, function () {
@@ -44,7 +56,8 @@ sap.ui.define([
 			// debugger;
 			var that = this;
 			if (this.selectedLocation === undefined) {
-				var aLocations = this.getView().getModel().getData().locations;
+				var aRoutes = this.getView().getModel("odata").getData().routes;
+				var aLocations = this.getView().getModel("odata").getData().locations;
 				// set flag image
 				var oLocations = aLocations.map(function (oLocation) {
 					oLocation.icon = this._getImage(oLocation.type);
@@ -54,7 +67,8 @@ sap.ui.define([
 				this._styleMap();
 				// set initial location
 				this.selectedLocation = this.getFirstNotCompletedLocation();
-				this.getView().getModel().setData({
+				this.getView().getModel("odata").setData({
+					routes: aRoutes,
 					locations: oLocations
 				});
 				this.setupPolylines();
@@ -81,7 +95,7 @@ sap.ui.define([
 		
 		isNextLocationAvailable: function () {
 			var isAvailable;
-			var aLocations = this.getView().getModel().getData().locations;
+			var aLocations = this.getView().getModel("odata").getData().locations;
 			if (this.getFirstNotCompletedLocationIndex() < aLocations.length) {
 				isAvailable = true;
 			} else {
@@ -92,7 +106,7 @@ sap.ui.define([
 		
 		getFirstNotCompletedLocation: function () {
 			// debugger;
-			var aLocations = this.getView().getModel().getData().locations;
+			var aLocations = this.getView().getModel("odata").getData().locations;
 			var oLocation;
 			for (var i = 0; i < aLocations.length; i++) {
 				if (aLocations[i].completed === false && aLocations[i].type === "location") {
@@ -104,7 +118,7 @@ sap.ui.define([
 		},
 		
 		getFirstNotCompletedLocationIndex: function () {
-			var aLocations = this.getView().getModel().getData().locations;
+			var aLocations = this.getView().getModel("odata").getData().locations;
 			var iIndex;
 			for (var i = 0; i < aLocations.length; i++) {
 				if (aLocations[i].completed === false && aLocations[i].type === "location") {
@@ -156,7 +170,7 @@ sap.ui.define([
 		},
 		
 		onNextPressed: function () {
-			var oModel = this.getView().getModel();
+			var oModel = this.getView().getModel("odata");
 			oModel.setProperty("/locations/" + this.getFirstNotCompletedLocationIndex() + "/completed", true);
 			this.pointReached = false;
 			if (this.isNextLocationAvailable() === true) {
@@ -175,7 +189,7 @@ sap.ui.define([
 
 		getPaths: function () {
 			var aPaths = [];
-			this.getView().getModel().getData().locations.forEach(function (obj) {
+			this.getView().getModel("odata").getData().locations.forEach(function (obj) {
 				if (obj.type === "location") {
 					aPaths.push({
 						lat: obj.lat,
@@ -232,7 +246,7 @@ sap.ui.define([
 						lat: position.coords.latitude,
 						lng: position.coords.longitude
 					};
-					var oModel = that.getView().getModel();
+					var oModel = that.getView().getModel("odata");
 					oModel.setProperty("/locations/0/lat", pos.lat);
 					oModel.setProperty("/locations/0/lng", pos.lng);
 					// check if location reached
