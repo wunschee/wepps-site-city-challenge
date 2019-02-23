@@ -6,7 +6,7 @@ sap.ui.define([
 	// "use strict";
 	this.selectedLocation = null;
 	this.pointReached = false;
-	var _routeId;
+	this._routeId = null;
 
 	return Controller.extend("city.challenge.controller.Detail", {
 		formatter: formatter,
@@ -25,12 +25,8 @@ sap.ui.define([
 		},
 		
 		_onObjectMatched: function (oEvent) {
-			debugger;
-			_routeId = parseInt(oEvent.getParameter("arguments").routeId);
-			this.getView().bindElement({
-				path: "/locations/" + _routeId,
-				model: "odata"
-			});
+			// debugger;
+			this._routeId = parseInt(oEvent.getParameter("arguments").routeId);
 		},
 		
 		onAfterRendering: function () {
@@ -41,8 +37,9 @@ sap.ui.define([
 					lng: position.coords.longitude
 				};
 				var oModel = that.getView().getModel("odata");
-				oModel.setProperty("/locations/0/lat", pos.lat);
-				oModel.setProperty("/locations/0/lng", pos.lng);
+				var sPath = oModel.getData().userlocations.length - 1;
+				oModel.setProperty("/userlocations/" + sPath + "/lat", pos.lat);
+				oModel.setProperty("/userlocations/" + sPath + "/lng", pos.lng);
 			}, function () {
 				MessageToast.show("Error: The Geolocation service failed.");
 			}, {
@@ -56,23 +53,13 @@ sap.ui.define([
 			// debugger;
 			var that = this;
 			if (this.selectedLocation === undefined) {
-				var aRoutes = this.getView().getModel("odata").getData().routes;
-				var aLocations = this.getView().getModel("odata").getData().locations;
-				// set flag image
-				var oLocations = aLocations.map(function (oLocation) {
-					oLocation.icon = this._getImage(oLocation.type);
-					return oLocation;
-				}.bind(this));
-				// set style
+				// debugger;
+				// Set map style
 				this._styleMap();
-				// set initial location
+				// Set initial location
 				this.selectedLocation = this.getFirstNotCompletedLocation();
-				this.getView().getModel("odata").setData({
-					routes: aRoutes,
-					locations: oLocations
-				});
 				this.setupPolylines();
-				// register button click event handling
+				// Register button click event handling
 				$(document).on("click", "#nextButton", function (event) {
 				    that.onNextPressed();
 				});
@@ -81,10 +68,10 @@ sap.ui.define([
 		},
 
 		onNavBack: function () {
-			// nav to master / show master / whatever
+			// Nav to master / show master / whatever
 			var oSplitApp = this.getView().getParent().getParent();
 			if (!sap.ui.Device.phone) {
-				/* on phone there is no master-detail pair, 
+				/* On phone there is no master-detail pair, 
 				 but a single navContainer => so navigate within this navContainer: */
 				var oMaster = oSplitApp.getMasterPages()[0];
 				oSplitApp.toMaster(oMaster, "flip");
@@ -95,7 +82,7 @@ sap.ui.define([
 		
 		isNextLocationAvailable: function () {
 			var isAvailable;
-			var aLocations = this.getView().getModel("odata").getData().locations;
+			var aLocations = this.getView().getModel("odata").getData().userlocations;
 			if (this.getFirstNotCompletedLocationIndex() < aLocations.length) {
 				isAvailable = true;
 			} else {
@@ -106,7 +93,7 @@ sap.ui.define([
 		
 		getFirstNotCompletedLocation: function () {
 			// debugger;
-			var aLocations = this.getView().getModel("odata").getData().locations;
+			var aLocations = this.getView().getModel("odata").getData().userlocations;
 			var oLocation;
 			for (var i = 0; i < aLocations.length; i++) {
 				if (aLocations[i].completed === false && aLocations[i].type === "location") {
@@ -118,7 +105,7 @@ sap.ui.define([
 		},
 		
 		getFirstNotCompletedLocationIndex: function () {
-			var aLocations = this.getView().getModel("odata").getData().locations;
+			var aLocations = this.getView().getModel("odata").getData().userlocations;
 			var iIndex;
 			for (var i = 0; i < aLocations.length; i++) {
 				if (aLocations[i].completed === false && aLocations[i].type === "location") {
@@ -171,7 +158,7 @@ sap.ui.define([
 		
 		onNextPressed: function () {
 			var oModel = this.getView().getModel("odata");
-			oModel.setProperty("/locations/" + this.getFirstNotCompletedLocationIndex() + "/completed", true);
+			oModel.setProperty("/userlocations/" + this.getFirstNotCompletedLocationIndex() + "/completed", true);
 			this.pointReached = false;
 			if (this.isNextLocationAvailable() === true) {
 				this.selectedLocation = this.getFirstNotCompletedLocation();
@@ -189,7 +176,7 @@ sap.ui.define([
 
 		getPaths: function () {
 			var aPaths = [];
-			this.getView().getModel("odata").getData().locations.forEach(function (obj) {
+			this.getView().getModel("odata").getData().userlocations.forEach(function (obj) {
 				if (obj.type === "location") {
 					aPaths.push({
 						lat: obj.lat,
@@ -247,9 +234,10 @@ sap.ui.define([
 						lng: position.coords.longitude
 					};
 					var oModel = that.getView().getModel("odata");
-					oModel.setProperty("/locations/0/lat", pos.lat);
-					oModel.setProperty("/locations/0/lng", pos.lng);
-					// check if location reached
+					var sPath = oModel.getData().userlocations.length - 1;
+					oModel.setProperty("/userlocations/" + sPath + "/lat", pos.lat);
+					oModel.setProperty("/userlocations/" + sPath + "/lng", pos.lng);
+					// Check if location reached
 					if (that.util.latLngEqual(pos, that.selectedLocation) === true) {
 						that.pointReached = true;
 						that.setLocation();
@@ -271,26 +259,8 @@ sap.ui.define([
 			}
 		},
 
-		_getImage: function (oType) {
-			// return {
-			// 	url: "./images/fast_ship.png",
-			// 	size: new google.maps.Size(20, 32),
-			// 	// The origin for this image is (0, 0).
-			// 	origin: new google.maps.Point(0, 0),
-			// 	// The anchor for this image is the base of the flagpole at (0, 32).
-			// 	anchor: new google.maps.Point(0, 32)
-			// };
-			var sImage;
-			if (oType === "user") {
-				sImage = "/img/m1.png";
-			} else {
-				sImage = "/img/pinkball.png";
-			}
-			return jQuery.sap.getModulePath("openui5.googlemaps.themes." + "base") + sImage;
-		},
-
 		_styleMap: function () {
-			//style the map
+			// Style the map
 			var styledMapType = new google.maps.StyledMapType(this._aMapStyle);
 			this.oMap.map.mapTypes.set("styled_map", styledMapType);
 			this.oMap.map.setMapTypeId("styled_map");
