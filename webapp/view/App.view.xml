@@ -24,9 +24,14 @@
 						ariaLabelledBy="Title1">
 			            <form:content>
 			                <Label text="{i18n>appLoginName}" required="true" />
-							<Input />
+							<Input id="inputFirstname" />
 							<Label text="{i18n>appLoginPassword}" required="true" />
-							<Input />
+							<Input id="inputLastname" />
+							<Label />
+							<Input editable="false" id="generateCaptcha" value="" />
+							<Button press="onRefresh" text="{i18n>appCaptchaRefresh}" />
+							<Label text="{i18n>appCaptcha}" required="true" />
+							<Input id="captchaCheck" value="" />
 							<Label />
 							<Button
 		                    	text="{i18n>appLogin}"

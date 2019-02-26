@@ -16,6 +16,8 @@ sap.ui.define([
 		
 		_onObjectMatched: function (oEvent) {
 			debugger;
+			var person = WEPPS.readPerson();
+			this.getView().byId("inputFirstname").setText(person.firstName + " " + person.lastName + ", " + person.age + " years");
 			var oRoutesList = this.getView().byId("routes");
 			oRoutesList.unbindAggregation("items");
 			oRoutesList.bindAggregation("items", {

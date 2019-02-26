@@ -20,6 +20,8 @@ sap.ui.define([
 		
 		_onObjectMatched: function (oEvent) {
 			// debugger;
+			var person = WEPPS.readPerson();
+			this.getView().byId("inputFirstname").setText(person.firstName + " " + person.lastName + ", " + person.age + " years");
 			_routeId = parseInt(oEvent.getParameter("arguments").routeId);
 			// Get all locations from model
 			var oModel = this.getView().getModel("odata");

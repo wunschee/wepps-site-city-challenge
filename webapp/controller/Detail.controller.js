@@ -41,7 +41,7 @@ sap.ui.define([
 				oModel.setProperty("/userlocations/" + sPath + "/lat", pos.lat);
 				oModel.setProperty("/userlocations/" + sPath + "/lng", pos.lng);
 			}, function () {
-				MessageToast.show("Error: The Geolocation service failed.");
+				MessageToast.show(this.getView().getModel("i18n").getResourceBundle().getText("Message.map.notavailable"));
 			}, {
 				enableHighAccuracy: true,
 				maximumAge: 10e3,
@@ -164,7 +164,7 @@ sap.ui.define([
 				this.selectedLocation = this.getFirstNotCompletedLocation();
 				this.setLocation();
 			} else {
-				MessageToast.show("Congratulations! You have completed the Challenge.");
+				MessageToast.show(this.getView().getModel("i18n").getResourceBundle().getText("Message.map.completed"));
 			}
 		},
 
@@ -248,7 +248,7 @@ sap.ui.define([
 						that.pointReached = false;
 					}
 				}, function () {
-					MessageToast.show("Error: The Geolocation service failed.");
+					MessageToast.show(this.getView().getModel("i18n").getResourceBundle().getText("Message.map.notavailable"));
 				}, {
 					enableHighAccuracy: true,
 					maximumAge: 10e3,

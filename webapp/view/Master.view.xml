@@ -1,6 +1,7 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="city.challenge.controller.Master"
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="{i18n>masterListTitle}" showNavButton="true" navButtonPress="onNavBack">
+		<Label id="inputFirstname" />
         <List id="places" mode="SingleSelectMaster" selectionChange="handleListSelect" />
         <footer>
             <Bar>

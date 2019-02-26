@@ -4,8 +4,9 @@
 		<pages>
 			<Page title="{i18n>challengeTitle}" showNavButton="true" navButtonPress="onNavBack">
 				<content>
+					<Label id="inputFirstname" />
 					<List id="routes" mode="SingleSelectMaster" />
-					<Button text="{i18n>challengeGoButton}" press="onGo" />
+					<Button text="{i18n>challengeGoButton}" press="onGo" width="100%" />
 				</content>
 			</Page>
 		</pages>
