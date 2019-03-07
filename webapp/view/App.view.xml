@@ -23,10 +23,6 @@
 						singleContainerFullSize="false"
 						ariaLabelledBy="Title1">
 			            <form:content>
-			                <Label text="{i18n>appLoginName}" required="true" />
-							<Input id="inputFirstname" />
-							<Label text="{i18n>appLoginPassword}" required="true" />
-							<Input id="inputLastname" />
 							<Label />
 							<Input editable="false" id="generateCaptcha" value="" />
 							<Button press="onRefresh" text="{i18n>appCaptchaRefresh}" />

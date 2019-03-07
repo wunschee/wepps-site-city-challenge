@@ -1,10 +1,12 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function (Controller) {
+	"sap/ui/core/mvc/Controller",
+	"sap/m/MessageBox"
+], function (Controller, MessageBox) {
 	"use strict";
 
 	return Controller.extend("city.challenge.controller.Challenge", {
 		onInit: function () {
+			this.oPage = this.byId("page1");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("challenge").attachPatternMatched(this._onObjectMatched, this);
 			this.oRoutesListTemplate = new sap.m.StandardListItem({
@@ -15,9 +17,13 @@ sap.ui.define([
 		},
 		
 		_onObjectMatched: function (oEvent) {
-			debugger;
+			// debugger;
 			var person = WEPPS.readPerson();
-			this.getView().byId("inputFirstname").setText(person.firstName + " " + person.lastName + ", " + person.age + " years");
+			if (!person) {
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo("app");
+			}
+			this.oPage.setTitle(this.getView().getModel("i18n").getResourceBundle().getText("challengeTitle") + "_" + person.captcha);
 			var oRoutesList = this.getView().byId("routes");
 			oRoutesList.unbindAggregation("items");
 			oRoutesList.bindAggregation("items", {
@@ -43,8 +49,20 @@ sap.ui.define([
 		},
 
 		onNavBack: function () {
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("app");
+			var bCompact = !!this.getView().$().closest(".sapUiSizeCompact").length;
+			var m1 = this.getView().getModel("i18n").getResourceBundle().getText("Message.challenge.navback");
+			var that = this;
+			MessageBox.warning(m1, {
+				actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+				styleClass: bCompact ? "sapUiSizeCompact" : "",
+				onClose: function(sAction) {
+					if (sAction === sap.m.MessageBox.Action.OK) {
+						WEPPS.clearPerson();
+						var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
+						oRouter.navTo("app");
+					}
+				}
+			});
 		}
 	});
 });

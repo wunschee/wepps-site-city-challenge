@@ -1,12 +1,14 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function (Controller) {
+	"sap/ui/core/mvc/Controller",
+	"sap/m/MessageBox"
+], function (Controller, MessageBox) {
 	"use strict";
 	var _routeId;
 
 	return Controller.extend("city.challenge.controller.Master", {
 		onInit: function () {
 			// debugger;
+			this.oPage = this.byId("page1");
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("root").attachPatternMatched(this._onObjectMatched, this);
 			this.list = this.byId("places");
@@ -21,7 +23,11 @@ sap.ui.define([
 		_onObjectMatched: function (oEvent) {
 			// debugger;
 			var person = WEPPS.readPerson();
-			this.getView().byId("inputFirstname").setText(person.firstName + " " + person.lastName + ", " + person.age + " years");
+			if (!person) {
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo("app");
+			}
+			this.oPage.setTitle(this.getView().getModel("i18n").getResourceBundle().getText("masterListTitle") + "_" + person.captcha);
 			_routeId = parseInt(oEvent.getParameter("arguments").routeId);
 			// Get all locations from model
 			var oModel = this.getView().getModel("odata");
@@ -97,8 +103,20 @@ sap.ui.define([
 		},
 		
 		onNavBack: function () {
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("challenge");
+			var bCompact = !!this.getView().$().closest(".sapUiSizeCompact").length;
+			var m1 = this.getView().getModel("i18n").getResourceBundle().getText("Message.master.navback");
+			var m2 = this.getView().getModel("i18n").getResourceBundle().getText("Message.master.navback2");
+			var that = this;
+			MessageBox.warning(m1 + "\n" + m2, {
+				actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+				styleClass: bCompact ? "sapUiSizeCompact" : "",
+				onClose: function(sAction) {
+					if (sAction === sap.m.MessageBox.Action.OK) {
+						var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
+						oRouter.navTo("challenge");
+					}
+				}
+			});
 		},
 		
 		handleListSelect: function (oEvent) {

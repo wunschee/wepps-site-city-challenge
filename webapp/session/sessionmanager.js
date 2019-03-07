@@ -10,7 +10,7 @@
 			// Parse JSON to object
 			personStorage = JSON.parse(personStorage);
 			// Create new object
-			person = new WEPPS.Person(personStorage.firstName, personStorage.lastName, personStorage.age);
+			person = new WEPPS.Person(personStorage.captcha);
 		}
 		return person;
 	};

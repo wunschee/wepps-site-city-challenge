@@ -1,9 +1,16 @@
 // All Controllers only call functions from this file
 (function (WEPPS, $, undefined) {
-	WEPPS.submitPerson = function (firstName, lastName, age) {
-		debugger;
+	WEPPS.readCaptcha   = function () {
+		// debugger;
+		// Read captcha from random array
+		var captcha = WEPPS.Captcha.getCaptcha();
+		return captcha;
+	};
+	
+	WEPPS.submitPerson = function (captcha) {
+		// debugger;
 		// Create new object
-		var person = new WEPPS.Person(firstName, lastName, age);
+		var person = new WEPPS.Person(captcha);
 		// Call instance method
 		person.log();
 		// Write to SessionStorage
@@ -11,7 +18,7 @@
 	};
 	
 	WEPPS.readPerson = function () {
-		debugger;
+		// debugger;
 		// Read person from SessionStorage
 		var person = WEPPS.SessionManager.getPerson("person");
 		// If person is not null...
