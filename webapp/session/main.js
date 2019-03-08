@@ -35,6 +35,6 @@
 		// Clear person from SessionStorage
 		WEPPS.SessionManager.clearPerson();
 		// Reload current location
-		location.reload();
+		// location.reload();
 	};
 } (window.WEPPS = window.WEPPS || {}, jQuery));
